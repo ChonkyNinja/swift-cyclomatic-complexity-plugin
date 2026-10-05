@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "metric": "swift-mccabe",
+  "swiftLanguageVersion": "6.4",
+  "reports": [
+    {
+      "path": "<memory>",
+      "results": [
+        {
+          "identity": "f()",
+          "name": "f()",
+          "kind": "function",
+          "location": { "line": 1, "column": 1 },
+          "complexity": 1,
+          "contributions": []
+        }
+      ],
+      "parseIssues": []
+    }
+  ],
+  "deltas": []
+}

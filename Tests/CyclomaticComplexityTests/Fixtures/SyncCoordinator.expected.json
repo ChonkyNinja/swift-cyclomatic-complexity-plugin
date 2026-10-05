@@ -1,0 +1,6 @@
+{
+  "SyncCoordinator.canRetry.get": 2,
+  "SyncCoordinator.synchronize(force:Bool,online:Bool)async throws->State": 7,
+  "SyncCoordinator.makeCompletion()->(Bool) -> Bool": 1,
+  "SyncCoordinator.makeCompletion()->(Bool) -> Bool.closure#1": 2
+}

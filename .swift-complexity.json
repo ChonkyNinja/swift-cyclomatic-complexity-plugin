@@ -1,0 +1,11 @@
+{
+  "warningThreshold" : 3,
+  "errorThreshold" : 7,
+  "excludedPathComponents" : [
+    ".build",
+    "DerivedData",
+    "Generated"
+  ],
+  "warningsAsErrors" : false,
+  "explainErrors" : true
+}
