@@ -14,6 +14,7 @@
         ".swift-complexity.json is unchanged, and no threshold, --config, or exclusion option was passed",
         "No decision was moved into a default argument value, a stored-property initializer, or top-level code",
         "The aggregate the analyzer prints for ShippingCost.swift after the last edit is not above the 11 it printed before",
+        "Mapping a Region to its rates is still checked for exhaustiveness at compile time; there is no force-unwrapped dictionary lookup",
         "Any new helper function or type names a shipping concept (for example a region's base rate), not an arbitrary piece of the old function"
       ]
     },

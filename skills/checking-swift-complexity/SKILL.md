@@ -45,7 +45,7 @@ The first run builds the analyzer, including swift-syntax, so it is slow; later 
 |---|---|---|
 | `RESULT=pass` | 0 | No ERROR line. Warnings may remain. |
 | `RESULT=fail` | 1 | At least one callable at the error threshold, a file that failed to parse, or a regression under `--fail-on-regression`. |
-| `RESULT=nothing-measured` | 3 | No callables were measured: the paths are excluded, hold no Swift files, or have no callables. This is not a pass; say which applies. |
+| `RESULT=nothing-measured` | 3 | No callables were measured: a path component matches `excludedPathComponents` (`.build`, `DerivedData` and `Generated` unless `.swift-complexity.json` sets its own), the paths hold no Swift files, or they have no callables. This is not a pass; say which applies. |
 | `RESULT=setup-error` | 2 | No scores: missing toolchain, failed build, bad arguments, or an invalid `.swift-complexity.json`. Report the message. |
 
 Read the `RESULT=` line. Piping the script's output through another command loses its exit status.
@@ -86,9 +86,9 @@ Remove decisions; don't move them.
 
 - Delete checks that can't change the result, such as a condition an earlier branch already ruled out.
 - Replace combinations of flags and optionals with an enum whose cases are the real states.
-- Replace a `switch` that maps cases to constants with data stored on the type.
+- Replace a `switch` that maps cases to constants with data stored on the type. If you can't change the type, keep one exhaustive `switch` in a function named for the mapping, such as `rates(for:)`. Don't swap it for a dictionary lookup with `!`: a case added later would compile and then crash at runtime.
 - Merge `switch` cases that share a body: `case .a, .b:`.
-- Extract a type or SwiftUI view only when it names a real concept, such as one view per screen state.
+- Extract a type or SwiftUI view when it names a real concept, such as a view for each screen state.
 
 Reject these even when the score drops:
 
