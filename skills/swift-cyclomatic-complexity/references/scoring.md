@@ -40,7 +40,7 @@ Count executable alternatives/bodies, not comma-separated patterns. `case .a, .b
 
 A `case ... where ...` adds +1 for the executable predicate in addition to the case alternative. A `for ... where ...` also adds +1. If a `where` expression itself contains `&&`, `||`, or `??`, those short-circuit operators are counted as additional paths.
 
-Switch statements and switch expressions use the same rule.
+Switch statements and switch expressions use the same rule. Cases inside `#if` / `#elseif` / `#else` clauses within a switch are alternatives like any other, consistent with measuring all conditional-compilation branches.
 
 ## Conditions
 

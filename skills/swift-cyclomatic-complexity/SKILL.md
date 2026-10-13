@@ -78,7 +78,7 @@ CLI threshold options may override configuration for an intentional one-off chec
 
 ## Tools
 
-From the repository root:
+From this repository's root:
 
 ```sh
 swift run swift-complexity Sources --format xcode
@@ -90,7 +90,28 @@ swift package complexity --format xcode
 swift test
 ```
 
+From any other project, point SwiftPM at a checkout of this package and pass the files you changed:
+
+```sh
+swift run --package-path <analyzer checkout> swift-complexity <changed .swift files> --explain
+```
+
 Use `CyclomaticComplexityBuildPlugin` for automatic incremental Xcode/SwiftPM build feedback. Error-level scores fail the build. `--warnings-as-errors` is available for stricter CI.
+
+## Verifying a change
+
+Confirm a measurement with the default text output. It prints every analyzed callable as `ACCEPTABLE`, `WARNING`, or `ERROR`, plus one `INFO` line per file, so you can see that the callables you changed were measured. `--format xcode` writes only to standard error and prints nothing for clean callables, so a clean run looks the same as a run that measured nothing. JSON output carries scores but no severity; derive severity from the resolved `.swift-complexity.json`.
+
+Exit status:
+
+- `0`: no error-level callable and every file parsed. Excluded paths (for example, anything under `Generated/`) and inputs with no Swift files also exit 0, silently.
+- `1` with a report: an error-level callable, a parse failure, or a failure requested by `--warnings-as-errors` or `--fail-on-regression`. Read the report.
+- `1` with `Error: …`: an operational failure, such as a configuration file that is not valid JSON or an unreadable baseline. It is not a score.
+- `64` with usage text: an invalid invocation or policy, such as a missing path, a non-`.swift` file, invalid thresholds, or more than one applicable configuration.
+
+The status covers every callable in every file you pass, including callables you did not touch. Judge a change by the before and after scores of the callables you changed.
+
+A quiet incremental build is not evidence of clean code. The build plugin re-analyzes a file only when that file or the configuration changes, so a warning-level file reports once and stays silent on later builds. Run the CLI to check.
 
 ## Baseline/diff policy
 
