@@ -90,4 +90,4 @@ For each callable you changed that ends at WARNING or ERROR, give its name, `fil
 | [references/scoring-rules.md](references/scoring-rules.md) | You need exactly what adds a point, what counts as a callable, or how `#if` is scored. |
 | [references/analyzer-cli.md](references/analyzer-cli.md) | You run `swift-complexity` directly: output formats, exit statuses, configuration, baselines. |
 | [references/build-plugins.md](references/build-plugins.md) | You add the analyzer to a package or Xcode target, or read complexity diagnostics in a build log. |
-| [references/maintaining-the-analyzer.md](references/maintaining-the-analyzer.md) | You change the analyzer, its plugins, or this skill. |
+| [references/maintaining-the-analyzer.md](references/maintaining-the-analyzer.md) | Only when changing the analyzer, its plugins, or this skill in the plugin repository. Not needed to measure or fix code. |

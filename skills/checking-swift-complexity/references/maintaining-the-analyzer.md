@@ -26,3 +26,7 @@ If the change could alter the scores shown in `references/refactoring-examples.m
 ## Output and file formats
 
 `scripts/measure.sh` parses the text format: it relies on the `INFO … callables=` line and on operational failures starting with `Error:`. JSON output and baselines carry `schemaVersion`, `metric` and `swiftLanguageVersion`, and a baseline with different values is rejected.
+
+## Evaluations
+
+`evals/evals.json` holds realistic tasks for this skill, with the files each one starts from under `evals/files/` and verifiable expectations. After changing the skill, run each task in a fresh copy of its files with an agent that has the skill loaded, grade every expectation with evidence from the run, and compare against the previous results.

@@ -1,0 +1,47 @@
+{
+  "skill_name": "checking-swift-complexity",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our build fails with a cyclomatic complexity error in Sources/Shipping/ShippingCost.swift. Fix it without changing what shippingCost(for:to:isMember:) returns for any input, and keep its signature, Region and Parcel as they are. The swift-cyclomatic-complexity-plugin checkout is at $PLUGIN.",
+      "expected_output": "shippingCost no longer has an error-level score, its results are unchanged, and the answer reports the before and after scores the analyzer printed.",
+      "files": ["evals/files/shipping/.swift-complexity.json", "evals/files/shipping/Sources/Shipping/ShippingCost.swift", "evals/files/shipping/check.swift"],
+      "expectations": [
+        "Measured ShippingCost.swift with the analyzer before editing it",
+        "Measured ShippingCost.swift again after the last edit, and that run printed RESULT=pass or exited 0 with no ERROR line",
+        "Every score in the final answer appears in analyzer output from the run",
+        "check.swift prints identical output when compiled with the original and with the final ShippingCost.swift",
+        ".swift-complexity.json is unchanged, and no threshold, --config, or exclusion option was passed",
+        "No decision was moved into a default argument value, a stored-property initializer, or top-level code",
+        "Any new helper function or type names a shipping concept (for example a region's base rate), not an arbitrary piece of the old function"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Is Generated/Models/Codec.swift clean on cyclomatic complexity? The swift-cyclomatic-complexity-plugin checkout is at $PLUGIN.",
+      "expected_output": "The answer says the file was not measured because the Generated directory is excluded by default, and does not call it clean.",
+      "files": ["evals/files/generated-codec/.swift-complexity.json", "evals/files/generated-codec/Generated/Models/Codec.swift"],
+      "expectations": [
+        "Ran the analyzer on Generated/Models/Codec.swift",
+        "The answer says the file was not measured, or that the analyzer skipped it, because Generated is an excluded path component",
+        "The answer does not say the file is clean or passes based on a run that measured nothing",
+        ".swift-complexity.json is unchanged",
+        "If the answer gives scores for the file, they come from analyzer output for a copy outside the excluded directory, and the answer says so"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Add Sources/App/DownloadStatusView.swift: a SwiftUI view that shows a download's state, which is one of queued, downloading with a progress value, paused, failed with an error message and a Retry button, or finished. Keep it within our complexity budget. The swift-cyclomatic-complexity-plugin checkout is at $PLUGIN.",
+      "expected_output": "A view that typechecks, has no error-level callable, reports the analyzer's printed scores, and either removes or justifies any warning.",
+      "files": ["evals/files/download-view/.swift-complexity.json"],
+      "expectations": [
+        "Sources/App/DownloadStatusView.swift typechecks with xcrun swiftc -typecheck -parse-as-library -swift-version 6",
+        "The download state is modeled as an enum rather than separate Booleans or optionals",
+        "Measured the new file with the analyzer after the last edit, and no callable is at ERROR",
+        "Every score in the final answer appears in analyzer output from the run",
+        "Each callable left at WARNING is named in the answer with a reason its branching is essential, or was split into views that each represent a state",
+        ".swift-complexity.json is unchanged, and no threshold, --config, or exclusion option was passed"
+      ]
+    }
+  ]
+}
