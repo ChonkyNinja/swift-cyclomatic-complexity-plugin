@@ -454,6 +454,21 @@ private final class DecisionVisitor: SyntaxVisitor {
         add(.ternary, at: Syntax(node))
         return .visitChildren
     }
+    // SwiftParser leaves `?:` unfolded; only operator folding produces TernaryExprSyntax.
+    override func visit(_ node: UnresolvedTernaryExprSyntax)
+        -> SyntaxVisitorContinueKind
+    {
+        add(.ternary, at: Syntax(node))
+        return .visitChildren
+    }
+
+    // `#if` conditions are compile-time; only the clause's code adds paths.
+    override func visit(_ node: IfConfigClauseSyntax)
+        -> SyntaxVisitorContinueKind
+    {
+        if let elements = node.elements { walk(elements) }
+        return .skipChildren
+    }
 
     override func visit(_ node: SwitchCaseItemSyntax)
         -> SyntaxVisitorContinueKind
