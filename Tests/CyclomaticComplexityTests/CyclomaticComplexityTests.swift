@@ -100,6 +100,37 @@ struct CyclomaticComplexityTests {
         #expect(result.complexity == 3)
     }
 
+    @Test("switch cases inside #if clauses are alternatives in every branch")
+    func switchCasesInConditionalCompilation() throws {
+        let source = """
+            enum E { case a, b, c, d }
+            func f(_ value: E) {
+                switch value {
+                case .a: print("a")
+                #if DEBUG
+                case .b: print("b")
+                #if os(macOS)
+                case .c: print("c")
+                #endif
+                #else
+                case .b, .c: print("bc")
+                #endif
+                default: print("other")
+                }
+            }
+            """
+        let result = try #require(
+            analyzer.analyze(source: source).results.first {
+                $0.name.hasPrefix("f(")
+            }
+        )
+        #expect(result.complexity == 5)
+        #expect(
+            result.contributions.filter { $0.kind == .switchAlternative }.count
+                == 4
+        )
+    }
+
     @Test("nested closure is independent and receives stable location identity")
     func closureBoundary() throws {
         let source = """

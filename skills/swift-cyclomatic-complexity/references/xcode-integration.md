@@ -38,7 +38,7 @@ Put `.swift-complexity.json` at the repository/project root. The executable and 
 
 `CyclomaticComplexityBuildPlugin` supports Swift package targets and Xcode project targets through `BuildToolPlugin` and `XcodeBuildToolPlugin`.
 
-It creates an incremental build command per Swift source. A successful analysis writes a stamp in the plugin work directory; changing that source invalidates the command. The plugin does not hard-code policy values. It resolves one target-wide `.swift-complexity.json`, passes it explicitly to every per-file command, and declares it as a build input so policy edits invalidate the checks. Multiple applicable configuration files for one target are diagnosed as an error.
+It creates an incremental build command per Swift source. A successful analysis writes a stamp in the plugin work directory; changing that source invalidates the command. A file with only warning-level callables counts as successful, so its warnings appear on the build that analyzes it and not on later builds until the file or the configuration changes. Error-level findings write no stamp and fail every build. The plugin does not hard-code policy values. It resolves one target-wide `.swift-complexity.json`, passes it explicitly to every per-file command, and declares it as a build input so policy edits invalidate the checks. Multiple applicable configuration files for one target are diagnosed as an error.
 
 For a Swift package target:
 
@@ -60,6 +60,8 @@ Explicit package-wide check:
 ```sh
 swift package complexity --format xcode
 ```
+
+The command plugin analyzes the Swift sources of every target in the package, test targets included, and passes any extra arguments through to `swift-complexity`; paths among them are analyzed in addition to the targets' sources. Its output, diagnostics included, appears on `swift package`'s standard output, and a failed check adds `error: Cyclomatic complexity check failed with status 1.` The plugin cannot write into the package directory, so `--write-baseline` with a path inside the package fails; write baselines with `swift run swift-complexity`. The command plugin has no Xcode project conformance, so Xcode projects use the build plugin, or the CLI through `swift run --package-path`.
 
 Direct CI invocation:
 

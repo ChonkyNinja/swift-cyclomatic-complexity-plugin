@@ -480,13 +480,29 @@ private final class DecisionVisitor: SyntaxVisitor {
     }
 
     override func visit(_ node: SwitchExprSyntax) -> SyntaxVisitorContinueKind {
-        let alternatives = node.cases.compactMap {
-            $0.as(SwitchCaseSyntax.self)
-        }
-        for alternative in alternatives.dropFirst() {
+        for alternative in Self.alternatives(in: node.cases).dropFirst() {
             add(.switchAlternative, at: Syntax(alternative))
         }
         return .visitChildren
+    }
+
+    // Cases inside `#if` clauses are alternatives too; every source branch is measured.
+    private static func alternatives(in cases: SwitchCaseListSyntax)
+        -> [SwitchCaseSyntax]
+    {
+        cases.flatMap { element -> [SwitchCaseSyntax] in
+            switch element {
+            case .switchCase(let switchCase):
+                [switchCase]
+            case .ifConfigDecl(let ifConfig):
+                ifConfig.clauses.flatMap { clause -> [SwitchCaseSyntax] in
+                    switch clause.elements {
+                    case .switchCases(let nested)?: alternatives(in: nested)
+                    default: []
+                    }
+                }
+            }
+        }
     }
 
     override func visit(_ token: TokenSyntax) -> SyntaxVisitorContinueKind {
