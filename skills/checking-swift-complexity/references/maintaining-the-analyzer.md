@@ -30,3 +30,5 @@ If the change could alter the scores shown in `references/refactoring-examples.m
 ## Evaluations
 
 `evals/evals.json` holds realistic tasks for this skill, with the files each one starts from under `evals/files/` and verifiable expectations. After changing the skill, run each task in a fresh copy of its files with an agent that has the skill loaded, grade every expectation with evidence from the run, and compare against the previous results.
+
+For a baseline without the skill, give the agent a copy of the plugin without `skills/` and without git history. Agents given a full checkout find and read this skill, and can read the evaluations from git.

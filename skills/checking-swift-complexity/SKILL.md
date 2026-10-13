@@ -22,7 +22,7 @@ Copy this checklist and track it:
 Complexity check:
 - [ ] 1. Measure the files you will change; note the scores of the callables you will touch
 - [ ] 2. Make the change
-- [ ] 3. Build and run the tests
+- [ ] 3. Build and run any tests
 - [ ] 4. Measure the same files again
 - [ ] 5. Fix every ERROR on a callable you changed, then repeat step 4
 - [ ] 6. Fix each WARNING on a callable you changed, or state why its branching is essential
@@ -45,8 +45,10 @@ The first run builds the analyzer, including swift-syntax, so it is slow; later 
 |---|---|---|
 | `RESULT=pass` | 0 | No ERROR line. Warnings may remain. |
 | `RESULT=fail` | 1 | At least one callable at the error threshold, a file that failed to parse, or a regression under `--fail-on-regression`. |
-| `RESULT=nothing-measured` | 3 | No callables were measured: excluded paths, no Swift files, or files without callables. Fix the paths; this is not a pass. |
+| `RESULT=nothing-measured` | 3 | No callables were measured: the paths are excluded, hold no Swift files, or have no callables. This is not a pass; say which applies. |
 | `RESULT=setup-error` | 2 | No scores: missing toolchain, failed build, bad arguments, or an invalid `.swift-complexity.json`. Report the message. |
+
+Read the `RESULT=` line. Piping the script's output through another command loses its exit status.
 
 When this skill is installed outside the plugin repository, set `SWIFT_COMPLEXITY_PACKAGE` to a checkout of swift-cyclomatic-complexity-plugin.
 

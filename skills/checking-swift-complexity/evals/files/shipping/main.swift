@@ -1,5 +1,6 @@
-// Prints shippingCost for every combination of inputs. Compile together with
-// Sources/Shipping/ShippingCost.swift and compare the output before and after a change.
+// Prints shippingCost for every combination of inputs. Build and run it with
+//   swiftc -swift-version 6 Sources/Shipping/ShippingCost.swift main.swift -o check && ./check
+// and compare the output before and after a change.
 let regions: [Region] = [.domestic, .canada, .europe, .asia]
 for region in regions {
     for weight in [0.5, 2.0, 7.25] {

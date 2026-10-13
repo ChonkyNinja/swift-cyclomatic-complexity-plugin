@@ -5,12 +5,12 @@
       "id": 1,
       "prompt": "Our build fails with a cyclomatic complexity error in Sources/Shipping/ShippingCost.swift. Fix it without changing what shippingCost(for:to:isMember:) returns for any input, and keep its signature, Region and Parcel as they are. The swift-cyclomatic-complexity-plugin checkout is at $PLUGIN.",
       "expected_output": "shippingCost no longer has an error-level score, its results are unchanged, and the answer reports the before and after scores the analyzer printed.",
-      "files": ["evals/files/shipping/.swift-complexity.json", "evals/files/shipping/Sources/Shipping/ShippingCost.swift", "evals/files/shipping/check.swift"],
+      "files": ["evals/files/shipping/.swift-complexity.json", "evals/files/shipping/Sources/Shipping/ShippingCost.swift", "evals/files/shipping/main.swift"],
       "expectations": [
         "Measured ShippingCost.swift with the analyzer before editing it",
         "Measured ShippingCost.swift again after the last edit, and that run printed RESULT=pass or exited 0 with no ERROR line",
         "Every score in the final answer appears in analyzer output from the run",
-        "check.swift prints identical output when compiled with the original and with the final ShippingCost.swift",
+        "main.swift prints identical output when compiled with the original and with the final ShippingCost.swift",
         ".swift-complexity.json is unchanged, and no threshold, --config, or exclusion option was passed",
         "No decision was moved into a default argument value, a stored-property initializer, or top-level code",
         "Any new helper function or type names a shipping concept (for example a region's base rate), not an arbitrary piece of the old function"
