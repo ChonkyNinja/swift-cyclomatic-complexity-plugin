@@ -1,6 +1,6 @@
 # Refactoring examples
 
-Three measured refactors. Each code block is a complete file, and each output block is real `scripts/measure.sh` output on Swift 6.4 for that file, with the path shortened to the file name and the per-decision lines left out. All six files typecheck with `swiftc -swift-version 6`.
+Three measured refactors. Each code block is a complete file, and each output block is real `scripts/measure.sh` output for that file, with the path shortened to the file name and the per-decision lines left out. All six files typecheck with `swiftc -swift-version 6`.
 
 ## Contents
 

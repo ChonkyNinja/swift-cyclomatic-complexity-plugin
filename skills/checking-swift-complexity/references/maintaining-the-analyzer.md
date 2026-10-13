@@ -4,7 +4,7 @@ Read this only when changing the analyzer, the plugins, or this skill in the swi
 
 ## Requirements
 
-The package targets `swift-tools-version: 6.4`, macOS 27 and swift-syntax 604. Never lower the tools version, the platform, or dependency versions to run on an older machine. If Swift 6.4 is not available, say the change could not be built or tested.
+`Package.swift` declares the Swift tools version, the macOS platform and the swift-syntax version. Don't lower any of them to build on an older machine: the analyzer parses with that swift-syntax release, so tests and scores only mean something against the declared versions. If that toolchain isn't available, say the change could not be built or tested.
 
 ## Testing
 

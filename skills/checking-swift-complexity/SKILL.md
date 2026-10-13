@@ -1,6 +1,6 @@
 ---
 name: checking-swift-complexity
-description: Measures and reduces cyclomatic complexity in Swift 6.4 code with the SwiftSyntax-based swift-complexity analyzer from swift-cyclomatic-complexity-plugin. Use after writing or changing Swift control flow (if, guard, loops, switch, catch, ?:, &&, ||, ??), before calling Swift work done, when Xcode or SwiftPM reports a cyclomatic complexity warning or error, or when asked how complex a Swift function is.
+description: Measures and reduces cyclomatic complexity in Swift code with the SwiftSyntax-based swift-complexity analyzer from swift-cyclomatic-complexity-plugin. Use after writing or changing Swift control flow (if, guard, loops, switch, catch, ?:, &&, ||, ??), before calling Swift work done, when Xcode or SwiftPM reports a cyclomatic complexity warning or error, or when asked how complex a Swift function is.
 ---
 
 # Checking Swift complexity
@@ -9,10 +9,10 @@ The analyzer scores every Swift callable (function, initializer, accessor, compu
 
 ## Rules
 
-- MUST report only scores the analyzer printed. Never estimate a score by reading code.
-- MUST NOT edit `.swift-complexity.json`, add excluded paths, or pass threshold or `--config` options to make code pass. Thresholds change only when the user decides.
-- MUST NOT restructure code to hide decisions from the analyzer. See "Fixing a warning or error".
-- The analyzer needs Swift 6.4 (Xcode 27). Without it, say the check could not run and give no scores. Never lower the package's tools version or platform to make it build.
+- Report only scores the analyzer printed, not estimates from reading code. Its rules have details that are easy to miss, such as `??` and extra comma conditions each adding a point while default argument values add nothing, and the user acts on the numbers you give.
+- Leave `.swift-complexity.json`, excluded paths, thresholds and `--config` as they are. They are the team's budget, and changing them to make code pass hides exactly what the check exists to show. Changing them is the user's decision.
+- Don't restructure code to hide decisions from the analyzer. A moved decision is still there for the next reader, and the score stops describing the code. See "Fixing a warning or error".
+- The analyzer builds with the Swift toolchain and macOS version that the plugin's `Package.swift` declares. If they aren't available, say the check could not run and give no scores. Don't lower the package's tools version or platform to make it build; that changes a package you weren't asked to change.
 
 ## Workflow
 
@@ -29,7 +29,7 @@ Complexity check:
 - [ ] 7. Report
 ```
 
-Only move past step 5 when no callable you changed is at ERROR.
+Only move past step 5 when no callable you changed is at ERROR, because an ERROR fails the build.
 
 ## Measuring
 

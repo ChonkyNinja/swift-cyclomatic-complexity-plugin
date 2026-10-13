@@ -24,7 +24,7 @@ setup_error() {
 }
 
 [[ $# -gt 0 ]] || setup_error "pass at least one Swift file or directory"
-command -v swift >/dev/null 2>&1 || setup_error "swift is not on PATH; the analyzer needs Swift 6.4 (Xcode 27)"
+command -v swift >/dev/null 2>&1 || setup_error "swift is not on PATH; the analyzer needs the Swift toolchain that $package/Package.swift declares"
 grep -q '"swift-complexity"' "$package/Package.swift" 2>/dev/null ||
     setup_error "no swift-complexity package at $package; set SWIFT_COMPLEXITY_PACKAGE to a checkout of swift-cyclomatic-complexity-plugin"
 
