@@ -21,7 +21,7 @@ From any other directory: `swift run --package-path <plugin checkout> swift-comp
 
 ## Output formats
 
-**text** goes to stdout. Each callable gets one line with its severity (`ACCEPTABLE`, `WARNING`, `ERROR`), `path:line:column`, display name, `[identity]`, `complexity=N`, and a summary by kind. Each file with callables gets an `INFO` line with `aggregate`, `max` and `callables`. A parse error prints `ERROR path:line:column parse-error: message`. This is the only format that confirms which callables were measured.
+**text** goes to stdout. Each callable gets one line with its severity (`ACCEPTABLE`, `WARNING`, `ERROR`), `path:line:column`, display name, `[identity]`, `complexity=N`, and a summary by kind, or `baseline only` when it has no decisions. Each file with callables gets an `INFO` line with `aggregate`, `max` and `callables`. A parse error prints `ERROR path:line:column parse-error: message`. This is the only format that confirms which callables were measured.
 
 **json** goes to stdout. The envelope has `schemaVersion: 1`, `metric: "swift-mccabe"` and `swiftLanguageVersion: "6.4"`; treat any other values as unsupported. Scores are in `reports[].results[]`, with `identity`, `name`, `kind`, `location`, `complexity` and `contributions[]`. Parse errors are in `reports[].parseIssues[]`, and `deltas[]` is filled only with `--baseline`. JSON has no severity field, so derive severity from the thresholds in effect.
 

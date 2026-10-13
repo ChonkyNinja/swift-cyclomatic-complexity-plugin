@@ -54,11 +54,29 @@ The result covers every callable in the files passed, including code you did not
 
 ## Reading the report
 
-@@REPORT_EXAMPLE@@
+For this function:
 
-- Each callable line gives severity, location, name, `[identity]`, score, and the points grouped by kind.
+```swift
+func classify(_ value: Int?) -> String {
+    guard let value, value >= 0 else { return "invalid" }
+    return value.isMultiple(of: 2) ? "even" : "odd"
+}
+```
+
+the script prints:
+
+```
+WARNING /path/Classify.swift:1:1 classify(_:) [classify(_:Int?)->String] complexity=4 +1 guard, +1 ternary, +1 condition-chain
+  +1 guard @ 2:5  guard
+  +1 condition-chain @ 2:22  value
+  +1 ternary @ 3:36  ?
+INFO /path/Classify.swift aggregate=4 max=4 callables=1
+RESULT=pass
+```
+
+- Each callable line gives severity, location, name, `[identity]`, score, and the points grouped by kind. A callable with no decisions shows `baseline only`.
 - Each indented line is one decision and its `line:column`.
-- One `INFO` line per file with callables. A callable you changed that has no line was not measured.
+- One `INFO` line per file with callables. `aggregate` is the sum of the file's scores. A callable you changed that has no line was not measured.
 
 ## Fixing a warning or error
 
@@ -74,7 +92,7 @@ Reject these even when the score drops:
 
 - Swapping `if`, `guard` and `?:`. Each is one decision.
 - Moving a check where the analyzer doesn't look: default argument values, stored-property initializers, or top-level code.
-- Splitting a callable into helpers or closures that name nothing. A lower score with a higher `callables=` count is the warning sign.
+- Splitting a callable into helpers or closures that name nothing. When `callables=` rises and `aggregate` doesn't fall, check that every new callable names something real.
 
 Keep branching that is essential, such as a `guard` that validates input or a `switch` over the cases of a domain enum, and say why it stays.
 
