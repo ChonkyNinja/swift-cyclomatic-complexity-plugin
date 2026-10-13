@@ -1,7 +1,7 @@
 # Swift Cyclomatic Complexity Plugin
 
 A Swift-native analyzer and build gate for keeping cyclomatic complexity low
-in Swift 6.4, with a bundled agent skill.
+in Swift 6.4.
 
 ## Included
 
@@ -22,9 +22,7 @@ in Swift 6.4, with a bundled agent skill.
 - informational aggregate/max/callable-count anti-gaming context
 - Swift Testing unit/golden coverage plus end-to-end build-tool-plugin integration tests
 
-The authoritative agent behavior is
-`skills/swift-cyclomatic-complexity/SKILL.md`; the Swift package is
-at the repository root.
+The Swift package is at the repository root.
 
 ## Default policy
 
