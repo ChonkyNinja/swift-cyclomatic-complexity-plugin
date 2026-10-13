@@ -278,7 +278,7 @@ struct CyclomaticComplexityTests {
             }
             """
         let results = analyzer.analyze(source: source).results.filter {
-            $0.kind == "accessor" && $0.name.hasPrefix("subscript.")
+            $0.kind == "accessor" && $0.name.hasPrefix("subscript(")
         }
         #expect(results.count == 2)
         #expect(results.allSatisfy { $0.complexity == 2 })
@@ -407,6 +407,21 @@ struct CyclomaticComplexityTests {
                 $0.identity.contains("#if") || $0.identity.contains("#else")
             }
         )
+    }
+
+    @Test("compile-time #if conditions add no decisions inside a body")
+    func conditionalCompilationConditionInBody() throws {
+        let source = """
+            func f() {
+                #if os(macOS) && DEBUG
+                print(1)
+                #endif
+            }
+            """
+        let result = try #require(
+            analyzer.analyze(source: source).results.first
+        )
+        #expect(result.complexity == 1)
     }
 
     @Test("golden Swift fixture preserves stable scores and identities")

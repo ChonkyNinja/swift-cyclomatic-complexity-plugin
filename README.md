@@ -23,7 +23,7 @@ in Swift 6.4, with a bundled agent skill.
 - Swift Testing unit/golden coverage plus end-to-end build-tool-plugin integration tests
 
 The authoritative agent behavior is
-`.agents/skills/swift-cyclomatic-complexity/SKILL.md`; the Swift package is
+`skills/swift-cyclomatic-complexity/SKILL.md`; the Swift package is
 at the repository root.
 
 ## Default policy

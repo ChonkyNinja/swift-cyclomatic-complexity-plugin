@@ -68,7 +68,7 @@ Threshold equality is inclusive. Repository configuration can be stricter. Raisi
 
 ## Conditional compilation
 
-The source analyzer intentionally measures **all source branches** under `#if` / `#elseif` / `#else`. It does not pretend to know the compiler's complete active-condition environment from source text alone. Conditional-compilation ancestry is part of machine identity so mutually exclusive declarations cannot overwrite one another in a baseline.
+The source analyzer intentionally measures **all source branches** under `#if` / `#elseif` / `#else`. It does not pretend to know the compiler's complete active-condition environment from source text alone. The `#if` conditions themselves are compile-time and add no points, even when they contain `&&` or `||`. Conditional-compilation ancestry is part of machine identity so mutually exclusive declarations cannot overwrite one another in a baseline.
 
 ## Parse validity
 
