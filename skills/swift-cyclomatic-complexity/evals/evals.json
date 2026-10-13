@@ -1,5 +1,5 @@
 {
-  "skill_name": "checking-swift-complexity",
+  "skill_name": "swift-cyclomatic-complexity",
   "evals": [
     {
       "id": 1,

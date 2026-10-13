@@ -1,9 +1,9 @@
 ---
-name: checking-swift-complexity
+name: swift-cyclomatic-complexity
 description: Measures and reduces cyclomatic complexity in Swift code with the SwiftSyntax-based swift-complexity analyzer from swift-cyclomatic-complexity-plugin. Use after writing or changing Swift control flow (if, guard, loops, switch, catch, ?:, &&, ||, ??), before calling Swift work done, when Xcode or SwiftPM reports a cyclomatic complexity warning or error, or when asked how complex a Swift function is.
 ---
 
-# Checking Swift complexity
+# Swift cyclomatic complexity
 
 The analyzer scores every Swift callable (function, initializer, accessor, computed property, closure) by its decision points. Every callable starts at 1. By default a score of 3–6 is a warning, and 7 or more is an error that fails the build.
 
@@ -77,6 +77,7 @@ RESULT=pass
 ```
 
 - Each callable line gives severity, location, name, `[identity]`, score, and the points grouped by kind. A callable with no decisions shows `baseline only`.
+- Names follow the analyzer's own notation, not Swift syntax: `body.get` is the getter of the `body` property, and `closure#1` is the first closure inside the callable it belongs to. The bracketed identity adds the enclosing types and the parameter types, so overloads stay apart.
 - Each indented line is one decision and its `line:column`.
 - One `INFO` line per file with callables. `aggregate` is the sum of the file's scores. A callable you changed that has no line was not measured.
 

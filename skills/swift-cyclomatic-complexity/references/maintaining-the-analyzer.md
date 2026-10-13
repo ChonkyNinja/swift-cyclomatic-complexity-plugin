@@ -19,7 +19,7 @@ A change to what counts must update, in the same change:
 
 1. `Sources/CyclomaticComplexity/Analyzer.swift`
 2. a unit test that pins the new behavior
-3. `skills/checking-swift-complexity/references/scoring-rules.md`
+3. `skills/swift-cyclomatic-complexity/references/scoring-rules.md`
 
 If the change could alter the scores shown in `references/refactoring-examples.md`, measure those examples again and update the printed output.
 

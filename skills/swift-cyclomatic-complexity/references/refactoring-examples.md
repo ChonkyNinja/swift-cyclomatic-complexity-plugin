@@ -1,6 +1,6 @@
 # Refactoring examples
 
-Three measured refactors. Each code block is a complete file, and each output block is real `scripts/measure.sh` output for that file, with the path shortened to the file name and the per-decision lines left out. All six files typecheck with `swiftc -swift-version 6`.
+Three measured refactors. Each code block is a complete file, and each output block is real `scripts/measure.sh` output for that file, with the path shortened to the file name, and the `[identity]` and per-decision lines left out. All six files typecheck with `swiftc -swift-version 6`.
 
 ## Contents
 
@@ -36,7 +36,7 @@ func monthlyPrice(plan: Plan, seats: Int, annual: Bool, coupon: Decimal?) -> Dec
 ```
 
 ```
-ERROR Pricing.swift:5:1 monthlyPrice(plan:seats:annual:coupon:) [monthlyPrice(plan:Plan,seats:Int,annual:Bool,coupon:Decimal?)->Decimal] complexity=9 +2 if, +1 &&, +3 switch-alternative, +2 condition-chain
+ERROR Pricing.swift:5:1 monthlyPrice(plan:seats:annual:coupon:) complexity=9 +2 if, +1 &&, +3 switch-alternative, +2 condition-chain
 RESULT=fail
 ```
 
@@ -72,8 +72,8 @@ func monthlyPrice(plan: Plan, seats: Int, annual: Bool, coupon: Decimal = 0) -> 
 ```
 
 ```
-ACCEPTABLE Pricing.swift:12:5 basePrice(seats:) [Plan.basePrice(seats:Int)->Decimal] complexity=2 +1 ternary
-ACCEPTABLE Pricing.swift:17:1 monthlyPrice(plan:seats:annual:coupon:) [monthlyPrice(plan:Plan,seats:Int,annual:Bool,coupon:Decimal)->Decimal] complexity=2 +1 ternary
+ACCEPTABLE Pricing.swift:12:5 basePrice(seats:) complexity=2 +1 ternary
+ACCEPTABLE Pricing.swift:17:1 monthlyPrice(plan:seats:annual:coupon:) complexity=2 +1 ternary
 INFO Pricing.swift aggregate=4 max=2 callables=2
 RESULT=pass
 ```
@@ -118,8 +118,8 @@ struct InboxView: View {
 ```
 
 ```
-WARNING InboxView.swift:13:9 body.get [InboxView.body.get] complexity=6 +3 if, +1 &&, +1 condition-chain
-ACCEPTABLE InboxView.swift:25:28 closure#1 [InboxView.body.get.closure#1] complexity=1 baseline only
+WARNING InboxView.swift:13:9 body.get complexity=6 +3 if, +1 &&, +1 condition-chain
+ACCEPTABLE InboxView.swift:25:28 closure#1 complexity=1 baseline only
 INFO InboxView.swift aggregate=7 max=6 callables=2
 RESULT=pass
 ```
@@ -178,10 +178,10 @@ struct MessageList: View {
 ```
 
 ```
-WARNING InboxView.swift:17:9 body.get [InboxView.body.get] complexity=3 +2 switch-alternative
-ACCEPTABLE InboxView.swift:36:9 body.get [MessageList.body.get] complexity=1 baseline only
-ACCEPTABLE InboxView.swift:37:24 closure#1 [MessageList.body.get.closure#1] complexity=1 baseline only
-ACCEPTABLE InboxView.swift:40:18 closure#2 [MessageList.body.get.closure#2] complexity=2 +1 if
+WARNING InboxView.swift:17:9 body.get complexity=3 +2 switch-alternative
+ACCEPTABLE InboxView.swift:36:9 body.get complexity=1 baseline only
+ACCEPTABLE InboxView.swift:37:24 closure#1 complexity=1 baseline only
+ACCEPTABLE InboxView.swift:40:18 closure#2 complexity=2 +1 if
 INFO InboxView.swift aggregate=7 max=3 callables=4
 RESULT=pass
 ```
@@ -200,7 +200,7 @@ func validatedPort(_ text: String) -> Int? {
 ```
 
 ```
-WARNING Port.swift:1:1 validatedPort(_:) [validatedPort(_:String)->Int?] complexity=3 +1 guard, +1 condition-chain
+WARNING Port.swift:1:1 validatedPort(_:) complexity=3 +1 guard, +1 condition-chain
 INFO Port.swift aggregate=3 max=3 callables=1
 RESULT=pass
 ```
@@ -214,8 +214,8 @@ func validatedPort(_ text: String) -> Int? {
 ```
 
 ```
-ACCEPTABLE Port.swift:1:1 validatedPort(_:) [validatedPort(_:String)->Int?] complexity=1 baseline only
-ACCEPTABLE Port.swift:2:23 closure#1 [validatedPort(_:String)->Int?.closure#1] complexity=2 +1 ternary
+ACCEPTABLE Port.swift:1:1 validatedPort(_:) complexity=1 baseline only
+ACCEPTABLE Port.swift:2:23 closure#1 complexity=2 +1 ternary
 INFO Port.swift aggregate=3 max=2 callables=2
 RESULT=pass
 ```
